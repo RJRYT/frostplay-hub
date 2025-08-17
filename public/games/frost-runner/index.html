@@ -9,14 +9,14 @@
     <!-- Open Graph -->
     <meta property="og:title" content="Frost Runner - FrostPlay">
     <meta property="og:description" content="Navigate through icy obstacles in this fast-paced endless runner with stunning visual effects.">
-    <meta property="og:image" content="/games/frost-runner/thumbnail.png">
+    <meta property="og:image" content="frostplay-hub/games/frost-runner/thumbnail.png">
     <meta property="og:type" content="website">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Frost Runner - FrostPlay">
     <meta name="twitter:description" content="Navigate through icy obstacles in this fast-paced endless runner with stunning visual effects.">
-    <meta name="twitter:image" content="/games/frost-runner/thumbnail.png">
+    <meta name="twitter:image" content="frostplay-hub/games/frost-runner/thumbnail.png">
     
     <style>
         body, html {
@@ -392,11 +392,6 @@
         window.addEventListener('load', () => {
             new FrostRunner();
         });
-        
-        // Service worker registration for offline support
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(console.error);
-        }
     </script>
 </body>
 </html>
