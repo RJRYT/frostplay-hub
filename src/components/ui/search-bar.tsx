@@ -10,7 +10,7 @@ interface SearchBarProps {
   className?: string;
 }
 
-export function SearchBar({ value, onChange, placeholder = "Search games...", className }: SearchBarProps) {
+export function SearchBar({ value, onChange, placeholder = "Press / to focus", className }: SearchBarProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleClear = () => {
@@ -54,9 +54,6 @@ export function SearchBar({ value, onChange, placeholder = "Search games...", cl
             <X className="h-4 w-4" />
           </Button>
         )}
-      </div>
-      <div className="absolute top-full left-0 text-xs text-muted-foreground mt-1">
-        Press <kbd className="px-1 py-0.5 text-xs bg-muted rounded">/</kbd> to focus
       </div>
     </div>
   );
