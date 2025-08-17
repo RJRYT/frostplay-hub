@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Puzzle - Brain Teaser</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a, #1a0a1a, #0a1a1a);
+            font-family: 'Courier New', monospace;
+            color: #ff00ff;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: relative;
+        }
+
+        .bg-effects {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .neon-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .neon-circle:nth-child(1) {
+            top: 10%;
+            left: 20%;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #ff00ff40, transparent);
+            animation-delay: 0s;
+        }
+
+        .neon-circle:nth-child(2) {
+            top: 60%;
+            right: 20%;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #00ffff40, transparent);
+            animation-delay: 2s;
+        }
+
+        .neon-circle:nth-child(3) {
+            bottom: 20%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, #ffff0040, transparent);
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(120deg); }
+            66% { transform: translateY(10px) rotate(240deg); }
+        }
+
+        .hud {
+            background: rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid #ff00ff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 0, 255, 0.6);
+        }
+
+        .game-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 60px);
+            grid-template-rows: repeat(6, 60px);
+            gap: 4px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            border: 3px solid #ff00ff;
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.5);
+        }
+
+        .puzzle-cell {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .puzzle-cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+
+        .puzzle-cell:hover::before {
+            transform: translateX(100%);
+        }
+
+        .puzzle-cell.active {
+            transform: scale(0.95);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .neon-block {
+            width: 100%;
+            height: 100%;
+            border-radius: 6px;
+            position: relative;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .neon-block::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent);
+            opacity: 0.6;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 10px currentColor; }
+            to { box-shadow: 0 0 20px currentColor, 0 0 30px currentColor; }
+        }
+
+        .color-1 { background: linear-gradient(135deg, #ff0080, #ff4080); color: #ff0080; }
+        .color-2 { background: linear-gradient(135deg, #0080ff, #4080ff); color: #0080ff; }
+        .color-3 { background: linear-gradient(135deg, #80ff00, #80ff40); color: #80ff00; }
+        .color-4 { background: linear-gradient(135deg, #ff8000, #ff8040); color: #ff8000; }
+        .color-5 { background: linear-gradient(135deg, #8000ff, #8040ff); color: #8000ff; }
+        .color-6 { background: linear-gradient(135deg, #00ff80, #40ff80); color: #00ff80; }
+
+        .success-animation {
+            animation: success 0.6s ease-out;
+        }
+
+        @keyframes success {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); box-shadow: 0 0 30px currentColor; }
+            100% { transform: scale(1); }
+        }
+
+        .level-complete {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            border: 3px solid #00ffff;
+            padding: 40px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.6);
+            display: none;
+            z-index: 100;
+        }
+
+        .level-complete h2 {
+            color: #00ffff;
+            margin-bottom: 20px;
+            font-size: 28px;
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .pulse {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        .combo-display {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #ffff00;
+            text-shadow: 0 0 10px currentColor;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .combo-display.show {
+            opacity: 1;
+            animation: comboGlow 0.5s ease-out;
+        }
+
+        @keyframes comboGlow {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); text-shadow: 0 0 20px currentColor; }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects">
+        <div class="neon-circle"></div>
+        <div class="neon-circle"></div>
+        <div class="neon-circle"></div>
+    </div>
+
+    <div class="hud">
+        <div class="stats">
+            <div class="stat">🧩 Level: <span id="level">1</span></div>
+            <div class="stat">⭐ Score: <span id="score">0</span></div>
+            <div class="stat">🎯 Target: <span id="target">5</span></div>
+            <div class="stat">⚡ Moves: <span id="moves">0</span></div>
+        </div>
+        <div class="controls">
+            <button class="btn" id="resetLevel">Reset Level</button>
+            <button class="btn" id="newGame">New Game</button>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <div class="puzzle-grid" id="puzzleGrid"></div>
+    </div>
+
+    <div class="combo-display" id="comboDisplay">COMBO!</div>
+
+    <div class="level-complete" id="levelComplete">
+        <h2 class="pulse">LEVEL COMPLETE!</h2>
+        <p>Neural pathways synchronized!</p>
+        <p>Score: <span id="levelScore"></span></p>
+        <p>Bonus: <span id="bonusScore"></span></p>
+        <button class="btn" onclick="nextLevel()">Next Level</button>
+    </div>
+
+    <script>
+        let gameState = {
+            level: 1,
+            score: 0,
+            moves: 0,
+            target: 5,
+            grid: [],
+            gridSize: 6,
+            colors: 6,
+            selectedCells: [],
+            isProcessing: false,
+            combo: 0
+        };
+
+        const colorClasses = ['color-1', 'color-2', 'color-3', 'color-4', 'color-5', 'color-6'];
+
+        function initializeGrid() {
+            gameState.grid = [];
+            for (let i = 0; i < gameState.gridSize * gameState.gridSize; i++) {
+                gameState.grid.push(Math.floor(Math.random() * gameState.colors) + 1);
+            }
+            renderGrid();
+        }
+
+        function renderGrid() {
+            const gridElement = document.getElementById('puzzleGrid');
+            gridElement.innerHTML = '';
+
+            for (let i = 0; i < gameState.grid.length; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'puzzle-cell';
+                cell.dataset.index = i;
+
+                if (gameState.grid[i] > 0) {
+                    const block = document.createElement('div');
+                    block.className = `neon-block ${colorClasses[gameState.grid[i] - 1]}`;
+                    cell.appendChild(block);
+                }
+
+                cell.addEventListener('click', () => handleCellClick(i));
+                gridElement.appendChild(cell);
+            }
+        }
+
+        function handleCellClick(index) {
+            if (gameState.isProcessing || gameState.grid[index] === 0) return;
+
+            const cell = document.querySelector(`[data-index="${index}"]`);
+            
+            if (gameState.selectedCells.includes(index)) {
+                // Deselect
+                gameState.selectedCells = gameState.selectedCells.filter(i => i !== index);
+                cell.classList.remove('active');
+            } else {
+                // Select if same color as other selected cells or first selection
+                const selectedColor = gameState.selectedCells.length > 0 ? 
+                    gameState.grid[gameState.selectedCells[0]] : gameState.grid[index];
+
+                if (gameState.grid[index] === selectedColor && isAdjacent(index, gameState.selectedCells)) {
+                    gameState.selectedCells.push(index);
+                    cell.classList.add('active');
+                    
+                    // Auto-remove if we have enough blocks
+                    if (gameState.selectedCells.length >= 3) {
+                        setTimeout(() => removeSelectedBlocks(), 500);
+                    }
+                }
+            }
+        }
+
+        function isAdjacent(index, selectedCells) {
+            if (selectedCells.length === 0) return true;
+
+            const row = Math.floor(index / gameState.gridSize);
+            const col = index % gameState.gridSize;
+
+            return selectedCells.some(selectedIndex => {
+                const selectedRow = Math.floor(selectedIndex / gameState.gridSize);
+                const selectedCol = selectedIndex % gameState.gridSize;
+                
+                const rowDiff = Math.abs(row - selectedRow);
+                const colDiff = Math.abs(col - selectedCol);
+                
+                return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
+            });
+        }
+
+        function removeSelectedBlocks() {
+            if (gameState.selectedCells.length < 3) {
+                clearSelection();
+                return;
+            }
+
+            gameState.isProcessing = true;
+            const blocksRemoved = gameState.selectedCells.length;
+            
+            // Calculate score
+            let points = blocksRemoved * 10;
+            if (blocksRemoved >= 5) {
+                points += 50; // Bonus for large groups
+                gameState.combo++;
+                showCombo();
+            } else {
+                gameState.combo = 0;
+            }
+            
+            if (gameState.combo > 1) {
+                points *= gameState.combo; // Combo multiplier
+            }
+            
+            gameState.score += points;
+            gameState.moves++;
+
+            // Add success animation
+            gameState.selectedCells.forEach(index => {
+                const cell = document.querySelector(`[data-index="${index}"]`);
+                const block = cell.querySelector('.neon-block');
+                if (block) {
+                    block.classList.add('success-animation');
+                }
+            });
+
+            setTimeout(() => {
+                // Remove blocks
+                gameState.selectedCells.forEach(index => {
+                    gameState.grid[index] = 0;
+                });
+
+                clearSelection();
+                applyGravity();
+                renderGrid();
+                checkLevelComplete();
+                updateUI();
+                gameState.isProcessing = false;
+            }, 600);
+        }
+
+        function showCombo() {
+            const comboDisplay = document.getElementById('comboDisplay');
+            comboDisplay.textContent = `COMBO x${gameState.combo}!`;
+            comboDisplay.classList.add('show');
+            
+            setTimeout(() => {
+                comboDisplay.classList.remove('show');
+            }, 1500);
+        }
+
+        function clearSelection() {
+            gameState.selectedCells = [];
+            document.querySelectorAll('.puzzle-cell').forEach(cell => {
+                cell.classList.remove('active');
+            });
+        }
+
+        function applyGravity() {
+            for (let col = 0; col < gameState.gridSize; col++) {
+                const colValues = [];
+                
+                // Collect non-zero values from bottom to top
+                for (let row = gameState.gridSize - 1; row >= 0; row--) {
+                    const index = row * gameState.gridSize + col;
+                    if (gameState.grid[index] !== 0) {
+                        colValues.push(gameState.grid[index]);
+                    }
+                }
+                
+                // Fill column from bottom up
+                for (let row = gameState.gridSize - 1; row >= 0; row--) {
+                    const index = row * gameState.gridSize + col;
+                    const valueIndex = gameState.gridSize - 1 - row;
+                    gameState.grid[index] = colValues[valueIndex] || 0;
+                }
+            }
+        }
+
+        function checkLevelComplete() {
+            const remainingBlocks = gameState.grid.filter(cell => cell !== 0).length;
+            if (remainingBlocks <= gameState.target) {
+                const bonus = Math.max(0, (gameState.target - remainingBlocks) * 100);
+                gameState.score += bonus;
+                
+                document.getElementById('levelScore').textContent = gameState.score;
+                document.getElementById('bonusScore').textContent = bonus;
+                document.getElementById('levelComplete').style.display = 'block';
+            }
+        }
+
+        function nextLevel() {
+            gameState.level++;
+            gameState.target = Math.max(3, gameState.target - 1);
+            gameState.moves = 0;
+            gameState.combo = 0;
+            
+            // Increase difficulty
+            if (gameState.level % 3 === 0) {
+                gameState.colors = Math.min(6, gameState.colors + 1);
+            }
+
+            document.getElementById('levelComplete').style.display = 'none';
+            initializeGrid();
+            updateUI();
+        }
+
+        function resetLevel() {
+            gameState.moves = 0;
+            gameState.combo = 0;
+            clearSelection();
+            initializeGrid();
+            updateUI();
+        }
+
+        function newGame() {
+            gameState = {
+                level: 1,
+                score: 0,
+                moves: 0,
+                target: 5,
+                grid: [],
+                gridSize: 6,
+                colors: 6,
+                selectedCells: [],
+                isProcessing: false,
+                combo: 0
+            };
+            document.getElementById('levelComplete').style.display = 'none';
+            initializeGrid();
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('level').textContent = gameState.level;
+            document.getElementById('score').textContent = gameState.score;
+            document.getElementById('target').textContent = gameState.target;
+            document.getElementById('moves').textContent = gameState.moves;
+        }
+
+        // Event listeners
+        document.getElementById('resetLevel').addEventListener('click', resetLevel);
+        document.getElementById('newGame').addEventListener('click', newGame);
+
+        // Initialize game
+        initializeGrid();
+        updateUI();
+    </script>
+</body>
+</html>
