@@ -18,23 +18,23 @@ export const games: Game[] = [
     title: 'Frost Runner',
     description: 'Navigate through icy obstacles in this fast-paced endless runner with stunning visual effects.',
     tags: ['Action', 'Endless', 'Casual'],
-    thumbnail: '/games/frost-runner/thumbnail.png',
+    thumbnail: 'games/frost-runner/thumbnail.png',
     featured: true,
     createdAt: '2024-01-15',
-    buildPath: '/games/frost-runner/',
+    buildPath: 'games/frost-runner/',
     difficulty: 'Medium',
     playTime: '10-30 min',
-    ogImage: '/games/frost-runner/og-image.png'
+    ogImage: 'games/frost-runner/og-image.png'
   },
   {
     slug: 'neon-puzzle',
     title: 'Neon Puzzle',
     description: 'Solve mind-bending puzzles with glowing neon blocks in this atmospheric brain teaser.',
     tags: ['Puzzle', 'Strategy', 'Relaxing'],
-    thumbnail: '/games/neon-puzzle/thumbnail.png',
+    thumbnail: 'games/neon-puzzle/thumbnail.png',
     featured: false,
     createdAt: '2024-01-10',
-    buildPath: '/games/neon-puzzle/',
+    buildPath: 'games/neon-puzzle/',
     difficulty: 'Hard',
     playTime: '30-60 min'
   },
@@ -43,10 +43,10 @@ export const games: Game[] = [
     title: 'Cyber Defense',
     description: 'Defend your digital fortress against waves of cyber threats in this tower defense game.',
     tags: ['Strategy', 'Defense', 'Cyberpunk'],
-    thumbnail: '/games/cyber-defense/thumbnail.png',
+    thumbnail: 'games/cyber-defense/thumbnail.png',
     featured: true,
     createdAt: '2024-01-05',
-    buildPath: '/games/cyber-defense/',
+    buildPath: 'games/cyber-defense/',
     difficulty: 'Hard',
     playTime: '45-90 min'
   }
