@@ -31,7 +31,7 @@ export default function GamePage() {
     return <Navigate to="/404" replace />;
   }
 
-  const gameUrl = "/"+game.buildPath;
+  const gameUrl = "/frostplay-hub/" + game.buildPath;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-surface to-surface-elevated">
@@ -98,7 +98,7 @@ export default function GamePage() {
             <div className="flex flex-col md:flex-row gap-6">
               <div className="w-full md:w-48 aspect-video rounded-lg overflow-hidden bg-muted">
                 <img
-                  src={`/${game.thumbnail}`}
+                  src={`/frostplay-hub/${game.thumbnail}`}
                   alt={`${game.title} thumbnail`}
                   className="w-full h-full object-cover"
                   loading="eager"
@@ -246,7 +246,7 @@ export default function GamePage() {
             applicationCategory: "Game",
             operatingSystem: "Web Browser",
             url: `https://rjryt.github.io/frostplay-hub/games/${game.slug}`,
-            screenshot: `/${game.thumbnail}`,
+            screenshot: `/frostplay-hub/${game.thumbnail}`,
             offers: {
               "@type": "Offer",
               price: "0",
