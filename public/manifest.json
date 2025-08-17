@@ -5,8 +5,8 @@
   "theme_color": "#00ccff",
   "background_color": "#1a1a2e",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "/frostplay-hub/",
+  "start_url": "/frostplay-hub/",
   "icons": [
     {
       "src": "icon-192.png",
