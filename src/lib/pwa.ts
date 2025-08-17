@@ -14,7 +14,7 @@ class PWAManager {
 
   async init() {
     if ('serviceWorker' in navigator) {
-      this.wb = new Workbox('/sw.js');
+      this.wb = new Workbox('/frostplay-hub/sw.js');
       
       this.wb.addEventListener('controlling', () => {
         window.location.reload();

@@ -18,7 +18,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/frostplay-hub">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/games/:slug" element={<GamePage />} />
