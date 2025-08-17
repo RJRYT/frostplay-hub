@@ -11,31 +11,37 @@ export function Footer() {
           <div className="space-y-4">
             <h3 className="font-bold text-fluid-lg gradient-text">FrostPlay</h3>
             <p className="text-fluid-sm text-muted-foreground">
-              A modern gaming portfolio showcasing interactive experiences built with React and love for gaming.
+              A modern gaming portfolio showcasing interactive experiences built
+              with React and love for gaming.
             </p>
             <div className="flex items-center gap-1 text-fluid-sm text-muted-foreground">
-              Made with <Heart className="h-4 w-4 text-red-500 animate-pulse" /> by AI
+              Made with <Heart className="h-4 w-4 text-red-500 animate-pulse" />{" "}
+              by AI
             </div>
           </div>
 
           {/* Quick Links */}
           <div className="space-y-4">
             <h4 className="font-semibold text-fluid-base">Quick Links</h4>
-            <nav className="space-y-2" role="navigation" aria-label="Footer navigation">
-              <a 
-                href="#games" 
+            <nav
+              className="space-y-2"
+              role="navigation"
+              aria-label="Footer navigation"
+            >
+              <a
+                href="#games"
                 className="block text-fluid-sm text-muted-foreground hover:text-foreground transition-smooth"
               >
                 Browse Games
               </a>
-              <a 
-                href="#featured" 
+              <a
+                href="#featured"
                 className="block text-fluid-sm text-muted-foreground hover:text-foreground transition-smooth"
               >
                 Featured
               </a>
-              <a 
-                href="/sitemap.xml" 
+              <a
+                href="/sitemap.xml"
                 className="block text-fluid-sm text-muted-foreground hover:text-foreground transition-smooth"
               >
                 Sitemap
@@ -83,10 +89,7 @@ export function Footer() {
                 asChild
                 className="glass hover:glow-accent transition-all duration-300"
               >
-                <a
-                  href="mailto:hello@frostplay.dev"
-                  aria-label="Email"
-                >
+                <a href="mailto:hello@frostplay.dev" aria-label="Email">
                   <Mail className="h-5 w-5" />
                 </a>
               </Button>
@@ -96,7 +99,8 @@ export function Footer() {
 
         <div className="border-t border-glass-border mt-8 pt-8 text-center">
           <p className="text-fluid-sm text-muted-foreground">
-            © 2024 FrostPlay. All rights reserved. • PWA-enabled for offline gaming
+            © 2024 FrostPlay. All rights reserved. • PWA-enabled for offline
+            gaming
           </p>
         </div>
       </div>
@@ -108,19 +112,20 @@ export function Footer() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "WebSite",
-            "name": "FrostPlay",
-            "description": "Modern gaming portfolio with offline-first gameplay",
-            "url": "https://frostplay.dev",
-            "author": {
+            name: "FrostPlay",
+            description: "Modern gaming portfolio with offline-first gameplay",
+            url: "https://rjryt.github.io/frostplay-hub",
+            author: {
               "@type": "Person",
-              "name": "FrostPlay Developer"
+              name: "FrostPlay Developer",
             },
-            "potentialAction": {
+            potentialAction: {
               "@type": "SearchAction",
-              "target": "https://frostplay.dev/?search={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          })
+              target:
+                "https://rjryt.github.io/frostplay-hub/?search={search_term_string}",
+              "query-input": "required name=search_term_string",
+            },
+          }),
         }}
       />
     </footer>

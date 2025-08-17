@@ -31,7 +31,7 @@ export default function GamePage() {
     return <Navigate to="/404" replace />;
   }
 
-  const gameUrl = game.buildPath;
+  const gameUrl = "/"+game.buildPath;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-surface to-surface-elevated">
@@ -49,9 +49,11 @@ export default function GamePage() {
                   <ArrowLeft className="h-5 w-5" />
                 </Link>
               </Button>
-              
+
               <div className="space-y-1">
-                <h1 className="font-bold text-fluid-lg gradient-text">{game.title}</h1>
+                <h1 className="font-bold text-fluid-lg gradient-text">
+                  {game.title}
+                </h1>
                 <div className="flex items-center gap-2">
                   {isOnline ? (
                     <div className="flex items-center gap-1 text-xs text-success">
@@ -65,18 +67,15 @@ export default function GamePage() {
                     </div>
                   )}
                   <span className="text-xs text-muted-foreground">•</span>
-                  <span className="text-xs text-muted-foreground">PWA Enabled</span>
+                  <span className="text-xs text-muted-foreground">
+                    PWA Enabled
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                asChild
-                className="glass"
-              >
+              <Button variant="outline" size="sm" asChild className="glass">
                 <a
                   href={gameUrl}
                   target="_blank"
@@ -99,16 +98,18 @@ export default function GamePage() {
             <div className="flex flex-col md:flex-row gap-6">
               <div className="w-full md:w-48 aspect-video rounded-lg overflow-hidden bg-muted">
                 <img
-                  src={game.thumbnail}
+                  src={`/${game.thumbnail}`}
                   alt={`${game.title} thumbnail`}
                   className="w-full h-full object-cover"
                   loading="eager"
                 />
               </div>
-              
+
               <div className="flex-1 space-y-4">
                 <div>
-                  <CardTitle className="text-fluid-2xl gradient-text mb-2">{game.title}</CardTitle>
+                  <CardTitle className="text-fluid-2xl gradient-text mb-2">
+                    {game.title}
+                  </CardTitle>
                   <CardDescription className="text-fluid-base">
                     {game.description}
                   </CardDescription>
@@ -125,11 +126,15 @@ export default function GamePage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                   <div>
                     <span className="text-muted-foreground">Difficulty:</span>
-                    <div className="font-medium">{game.difficulty || 'Not rated'}</div>
+                    <div className="font-medium">
+                      {game.difficulty || "Not rated"}
+                    </div>
                   </div>
                   <div>
                     <span className="text-muted-foreground">Play Time:</span>
-                    <div className="font-medium">{game.playTime || 'Variable'}</div>
+                    <div className="font-medium">
+                      {game.playTime || "Variable"}
+                    </div>
                   </div>
                   <div>
                     <span className="text-muted-foreground">Released:</span>
@@ -154,17 +159,22 @@ export default function GamePage() {
               {!gameLoaded && !gameError && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-                  <p className="text-fluid-base text-muted-foreground">Loading game...</p>
+                  <p className="text-fluid-base text-muted-foreground">
+                    Loading game...
+                  </p>
                 </div>
               )}
 
               {gameError ? (
                 <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 p-8 text-center">
                   <div className="text-destructive text-4xl">⚠️</div>
-                  <h3 className="text-fluid-lg font-semibold">Game Unavailable</h3>
+                  <h3 className="text-fluid-lg font-semibold">
+                    Game Unavailable
+                  </h3>
                   <p className="text-muted-foreground max-w-md">
-                    This game is currently unavailable. In a real implementation, 
-                    the game would be built and served from the games directory.
+                    This game is currently unavailable. In a real
+                    implementation, the game would be built and served from the
+                    games directory.
                   </p>
                   <Button
                     onClick={() => {
@@ -180,7 +190,9 @@ export default function GamePage() {
               ) : (
                 <iframe
                   src={gameUrl}
-                  className={`w-full h-full border-0 ${gameLoaded ? 'opacity-100' : 'opacity-0'}`}
+                  className={`w-full h-full border-0 ${
+                    gameLoaded ? "opacity-100" : "opacity-0"
+                  }`}
                   title={game.title}
                   onLoad={() => setGameLoaded(true)}
                   onError={() => setGameError(true)}
@@ -229,29 +241,29 @@ export default function GamePage() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "SoftwareApplication",
-            "name": game.title,
-            "description": game.description,
-            "applicationCategory": "Game",
-            "operatingSystem": "Web Browser",
-            "url": `https://frostplay.dev/games/${game.slug}`,
-            "screenshot": game.thumbnail,
-            "offers": {
+            name: game.title,
+            description: game.description,
+            applicationCategory: "Game",
+            operatingSystem: "Web Browser",
+            url: `https://rjryt.github.io/frostplay-hub/games/${game.slug}`,
+            screenshot: `/${game.thumbnail}`,
+            offers: {
               "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
+              price: "0",
+              priceCurrency: "USD",
             },
-            "author": {
+            author: {
               "@type": "Organization",
-              "name": "FrostPlay"
+              name: "FrostPlay",
             },
-            "datePublished": game.createdAt,
-            "keywords": game.tags.join(", "),
-            "aggregateRating": {
+            datePublished: game.createdAt,
+            keywords: game.tags.join(", "),
+            aggregateRating: {
               "@type": "AggregateRating",
-              "ratingValue": "4.5",
-              "ratingCount": "127"
-            }
-          })
+              ratingValue: "4.5",
+              ratingCount: "127",
+            },
+          }),
         }}
       />
     </div>
