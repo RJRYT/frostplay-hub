@@ -13,6 +13,15 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedTag, setSelectedTag] = React.useState<string | null>(null);
   
+  // Handle URL search parameter
+  React.useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchParam = urlParams.get('search');
+    if (searchParam) {
+      setSearchQuery(searchParam);
+    }
+  }, []);
+  
   const allTags = getAllTags();
   
   const filteredGames = React.useMemo(() => {
