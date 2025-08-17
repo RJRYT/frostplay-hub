@@ -60,7 +60,7 @@ export function Footer() {
                 className="glass hover:glow-primary transition-all duration-300"
               >
                 <a
-                  href="https://github.com"
+                  href="https://github.com/rjryt/frostplay-hub"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
@@ -75,7 +75,7 @@ export function Footer() {
                 className="glass hover:glow-secondary transition-all duration-300"
               >
                 <a
-                  href="https://twitter.com"
+                  href="https://twitter.com/rjryt"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Twitter"
@@ -89,7 +89,7 @@ export function Footer() {
                 asChild
                 className="glass hover:glow-accent transition-all duration-300"
               >
-                <a href="mailto:hello@frostplay.dev" aria-label="Email">
+                <a href="mailto:rjryt@github.io" aria-label="Email">
                   <Mail className="h-5 w-5" />
                 </a>
               </Button>

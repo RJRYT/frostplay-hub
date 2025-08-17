@@ -10,7 +10,7 @@ interface SearchBarProps {
   className?: string;
 }
 
-export function SearchBar({ value, onChange, placeholder = "Press / to focus", className }: SearchBarProps) {
+export function SearchBar({ value, onChange, placeholder = "Search Games... Press / to focus", className }: SearchBarProps) {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
   const handleClear = () => {

@@ -20,10 +20,14 @@ export function Header({ searchQuery, onSearchChange }: HeaderProps) {
   return (
     <header className="sticky top-0 z-40 glass backdrop-blur-md border-b border-glass-border">
       <div className="container mx-auto px-4">
-        <nav className="flex items-center justify-between h-16" role="navigation" aria-label="Main navigation">
+        <nav
+          className="flex items-center justify-between h-16"
+          role="navigation"
+          aria-label="Main navigation"
+        >
           {/* Logo */}
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="flex items-center gap-2 font-bold text-fluid-lg gradient-text transition-smooth hover:scale-105"
             aria-label="FrostPlay Home"
           >
@@ -49,7 +53,7 @@ export function Header({ searchQuery, onSearchChange }: HeaderProps) {
               className="glass hover:glow-primary transition-all duration-300"
             >
               <a
-                href="https://github.com"
+                href="https://github.com/rjryt/frostplay-hub"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View source on GitHub"
@@ -87,13 +91,9 @@ export function Header({ searchQuery, onSearchChange }: HeaderProps) {
                 className="w-full"
               />
               <div className="flex items-center justify-between">
-                <Button
-                  variant="outline"
-                  asChild
-                  className="glass flex-1 mr-2"
-                >
+                <Button variant="outline" asChild className="glass flex-1 mr-2">
                   <a
-                    href="https://github.com"
+                    href="https://github.com/rjryt/frostplay-hub"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2"
